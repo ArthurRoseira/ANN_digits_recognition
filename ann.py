@@ -103,6 +103,16 @@ class Network():
                         for (x, y) in test_data]
         return sum(int(x == y) for (x, y) in test_results)
 
+    def predict(self, data):
+        """Return the ANN output from the samples after the 
+        model is trained
+        """
+        if type(data) is tuple:
+            result = (np.argmax(self.feedforward(data[0])), data[1])
+        else:
+            result = [(np.argmax(self.feedforward(x)), y) for (x, y) in data]
+        return result
+
     def cost_derivative(self, output_activation, y):
         """Return the vector of partial derivatives for the output activations."""
         return (output_activation-y)
